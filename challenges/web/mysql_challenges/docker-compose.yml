@@ -1,0 +1,43 @@
+version: "3"
+services:
+
+  sqli_basics:
+    image: sqlitutobasics
+    environment:
+      MYSQL_HOST: db
+    ports:
+      - "127.0.0.1:10000:80"
+  
+  sqli_filters:
+    image: sqlitutofilters
+    environment:
+      MYSQL_HOST: db
+    ports:
+      - "127.0.0.1:10001:80"
+  
+  spammy:
+    image: spammy
+    environment:
+      MYSQL_HOST: db
+    ports:
+      - "127.0.0.1:10002:80"
+
+  db:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: sqli
+      MYSQL_ROOT_PASSWORD: 44hPZ3VdqSbuccFR
+    volumes:
+      - ./config/mysql:/docker-entrypoint-initdb.d
+      - ./datadir:/var/lib/mysql
+      - ./config/my.cnf:/etc/mysql/conf.d/my.cnf
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links: 
+      - db:db
+    ports:
+      - 8000:80
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 44hPZ3VdqSbuccFR

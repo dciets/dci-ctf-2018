@@ -1,0 +1,1 @@
+Requis: Dire aux participants que le flag est dans la table `secret` à la colonne `flag`.
