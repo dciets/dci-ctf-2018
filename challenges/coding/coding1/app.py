@@ -34,7 +34,7 @@ def print_flag():
 
 @app.route('/code',methods=['GET'])
 def show_source_code():
-    return '<pre>' + escape(open('chall.py').read()) + '</pre>'
+    return '<pre>' + escape(open('./app.py').read()) + '</pre>'
 
 if __name__=='__main__':
     app.run(host='0.0.0.0', port=5001)
