@@ -6,18 +6,18 @@ from secret import Secret
 from cgi import escape
 
 app = Flask(__name__)
-app.debug = True
-secret = Secret()
+app.debug = False
 
 def int2hex(n):
-    s=hex(int(n))[2:]
+    s=hex(abs(int(n)))[2:]
     return '0'+s if len(s)%2 else s
 
 @app.route('/',methods=['GET'])
 def print_flag():
     if not request.args.get('n'):
-        return escape('no "n" specified<br/><br/>Example: http://host:port/?n=123<br/><br/>Source code: /code')
+        return 'no "n" specified<br/><br/>Example: http://host:port/?n=123<br/><br/>Source code: /code'
     n=request.args.get('n')
+    secret = Secret()
     try:
         n=int(n)
     except ValueError:
