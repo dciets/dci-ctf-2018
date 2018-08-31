@@ -1,7 +1,0 @@
-package application;
-
-public class HealthUtil {
-	public String test() {
-		return "IT WORKS! :D";
-	}
-}
