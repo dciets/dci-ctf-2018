@@ -1,0 +1,17 @@
+package application;
+
+public class HealthUtil {
+	public String test() {
+		return "IT WORKS! :D";
+	}
+	
+	public String add(String a, String b) {
+		return a + b;
+	}
+	
+	public class WTF {
+		public String lawl() {
+			return "XD";
+		}
+	}
+}

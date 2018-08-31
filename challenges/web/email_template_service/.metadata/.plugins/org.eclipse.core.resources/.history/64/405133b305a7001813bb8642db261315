@@ -1,0 +1,7 @@
+package application;
+
+import org.thymeleaf.dialect.AbstractDialect;
+
+public class CustomDialect extends AbstractDialect implements I {
+
+}

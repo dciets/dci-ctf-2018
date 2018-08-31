@@ -1,0 +1,9 @@
+service info_service
+{
+  type = unlisted
+  protocol = tcp
+  wait = no
+  port = 3000
+  user = challenge
+  server = /app/info_service
+}

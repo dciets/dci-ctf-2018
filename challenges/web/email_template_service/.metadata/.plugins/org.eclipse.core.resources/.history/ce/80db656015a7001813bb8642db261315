@@ -1,0 +1,7 @@
+package application;
+
+public class HealthUtil {
+	public String test(String[]) {
+		return "IT WORKS! :D";
+	}
+}

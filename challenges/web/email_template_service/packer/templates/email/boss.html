@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Email for my Boss</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  Dear <span th:text="${boss}" />,<br />
+  <p th:text="${text}" />
+  I am ever so grateful for all the joy and prosperity that you bring to this wonderful company.<br /><br />
+  <span th:text="${name}" />
+</body>
+</html>

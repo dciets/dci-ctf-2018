@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My News Email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1><span th:text="${company}" /> update for <span th:text="${#dates.dayOfWeekName(#dates.createNow())}" />,
+    <span th:text="${#dates.day(#dates.createNow())}" /> <span th:text="${#dates.monthName(#dates.createNow())}" />
+    <span th:text="${#dates.year(#dates.createNow())}" />
+  </h1>
+  <pre th:text="${news}" />
+  <a th:href="${unsubscribe}">Click here to unsubscribe</a>
+</body>
+</html>

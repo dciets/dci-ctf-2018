@@ -1,0 +1,9 @@
+service level2
+{
+  type = unlisted
+  protocol = tcp
+  wait = no
+  port = 3000
+  user = challenge
+  server = /app/level2
+}
