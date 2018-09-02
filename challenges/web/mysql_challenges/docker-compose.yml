@@ -6,21 +6,21 @@ services:
     environment:
       MYSQL_HOST: db
     ports:
-      - "127.0.0.1:10000:80"
-  
+      - "10000:80"
+
   sqli_filters:
     image: sqlitutofilters
     environment:
       MYSQL_HOST: db
     ports:
-      - "127.0.0.1:10001:80"
-  
+      - "10001:80"
+
   spammy:
     image: spammy
     environment:
       MYSQL_HOST: db
     ports:
-      - "127.0.0.1:10002:80"
+      - "10002:80"
 
   db:
     image: mysql
@@ -34,7 +34,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links: 
+    links:
       - db:db
     ports:
       - 8000:80
