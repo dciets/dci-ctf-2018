@@ -7,9 +7,8 @@ void run_server() {
 
   while(1) {
     memset(buffer, 0, 1024);
-    read(0, buffer, 1023);
 
-    if(strcmp(buffer, "EXIT") == 0) {
+    if(read(0, buffer, 1023) <= 0 || strcmp(buffer, "EXIT") == 0) {
       return;
     }
 
