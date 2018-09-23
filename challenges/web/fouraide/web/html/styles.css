@@ -1,0 +1,108 @@
+body {
+    font-family: sans-serif;
+}
+
+#wrapper {
+    width: 80%;
+
+    margin: 0 auto;
+}
+
+h1 a {
+    text-decoration: none;
+
+    color: white;
+    background-color: darkred;
+    padding: 0.2em 1em ;
+    border-radius: 100%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+input {
+    font: inherit;
+    padding: 1em;
+    border: 5px solid green;
+    border-radius: 100px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1) inset;
+}
+
+button {
+    padding: 1em;
+    font: inherit;
+    border: 5px groove purple;
+    background-color: pink;
+    font-weight: bold;
+}
+
+div.error {
+    color: darkred;
+    border: 5px solid darkred;
+    padding: 1em;
+    margin: 1em;
+
+}
+
+.lead {
+    border-radius: 1em;
+    margin: 1em;
+    font-size: 1.5em;
+    background-color: lightgray;
+    padding: 2em;
+}
+
+.lead h2 {
+    margin-top: 0;
+}
+
+.lead p {
+    margin-bottom: 2em;
+}
+
+a.btn {
+    background-color: lightblue;
+    padding: 0.75em 1em;
+    border-radius: 0.2em;
+    border: 1px solid blue;
+
+}
+
+
+.blink {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+nav li {
+    display: inline;
+}
+
+nav div {
+    display: inline;
+}
+
+nav li a {
+    background-color: orange;
+    color: black;
+    padding: 0.7em 2em;
+    margin-right: 0.7em;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-decoration: none;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    border: 5px inset white;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+nav li a:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    margin: 2% 0;
+}

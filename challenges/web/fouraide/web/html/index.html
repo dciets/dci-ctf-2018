@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Four Aide</title>
+    <link href="/styles.css" rel="stylesheet"/>
+  </head>
+  <body>
+
+    <style data-bind="text: css"></style>
+
+    <div id="wrapper">
+      <h1><a href="#home">Four Aide</a></h1>
+
+      <nav>
+        <ul>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#tips">Conseils</a></li>
+          <li><a href="#users">Utilisateurs</a></li>
+
+          <div data-bind="if: loggedIn">
+            <li><a href="#profile">Mon profile</a></li>
+            <li><a href="#logout" data-bind="click: handleLogout">Déconnexion</a></li>
+          </div>
+
+          <div data-bind="if: !loggedIn()">
+            <li><a href="#signup">Inscription</a></li>
+            <li><a href="#login">Connexion</a></li>
+          </div>
+        </ul>
+      </nav>
+
+      <div data-bind="ifnot: ready">
+        Chargement...
+      </div>
+
+      <div data-bind="if: errorMessage() != ''">
+        <div data-bind="text: errorMessage" class="error"></div>
+      </div>
+
+
+      <div id="container" data-bind="if: ready">
+
+        <div data-bind="if: page() == 'users'">
+          <h3>Utilisateurs</h3>
+          <p>
+            Page en construction mais nous sommes tout de même <span data-bind="text: userCount"></span> four-aideuses et four-aideurs.
+          </p>
+        </div>
+
+        <div data-bind="if: page() == 'tips'">
+          <h2>Conseils</h2>
+
+          <h3><a href="https://www.toutpratique.com/8-Cuisine/143-Four-et-grille-de-four-nettoyage-utilisation-et-problemes/411-Nettoyer-un-four.php">10 astuces pour nettoyer un four</a></h3>
+          <img alt="" src="https://i.imgur.com/sIlt4MS.png" width="100"/>
+          <p>
+            Comment nettoyer son four ? Un four sale dégage une mauvaise odeur quand on l'actionne. Et comme tous les appareils si l'entretien du four est mal fait il marchera moins bien et moins longtemps. Le poulet, les gratins ou les gâteaux en montant, presque tout ce qui se cuit dans  les fours, risque de salir le four, soit en coulant, soit en raison des projections de grasses...
+          </p>
+
+          <hr/>
+
+          <h3><a href="https://www.brandsource.ca/fr/blog/1406-Comment-deplacer-des-electromenagers-sans-se-blesser">Comment transporter un four sans se blesser</a></h3>
+          <img alt="" src="https://i.imgur.com/n01SP75.png" width="100"/>
+          <p>
+            Pour plusieurs, déménager est une source de stress. Bien des gens associent le déménagement à une journée de course folle pendant laquelle blessures et endommagement des électroménagers se succèdent.
+
+            Vous aussi, vous craignez de déplacer vos électroménagers? Vous n’êtes pas certains des bonnes méthodes à employer pour éviter de vous blesser ou d’abîmer vos appareils? Voici quelques trucs pour un déménagement sans bobo ni tracas.
+          </p>
+
+          <h3><a href="http://www.fourencastrable.org/installer-votre-four-en-quelques-etapes-simples/">Installer facilement un four encastrable</a></h3>
+          <img alt="" src="https://i.imgur.com/OHnedKk.png" width="100"/>
+          <p>Les fours encastrables sont des appareils ménagers indispensables pour les cuisines.</p>
+
+          <hr/>
+
+          <p>
+            À venir: tout les utilisateurs pourrons ajouter des conseils.
+          </p>
+        </div>
+
+        <div data-bind="if: page() == 'home'">
+          <div class="lead">
+            <h2>Une communauté pour vous</h2>
+            <p>
+              <b>Four Aide</b> a pour mission de réunir les gens qui doivent intéragir avec des fours. Que vous soyez utilisateur, réparateur, vendeur, collectionneur, Four Aide est pour là pour vous fournir les conseils que vous désirez pour l'entretient de votre appareil.
+            </p>
+            <p style="margin-bottom: 0">
+              <a class="btn scale" href="#signup">Inscription</a> et rejoingnez <span data-bind="text: userCount"></span> four-aideuses et four-aideurs.
+            </p>
+          </div>
+
+          <hr/>
+          <b>Contenu commandité</b>
+          <h1>C'EST LA VENTE DE LA RENTRÉE SCOLAIRE CHEZ CHO &amp; MARTINO</h1>
+          Obtenez ce du duo four à micro-onde et four à convection de marque Posch pour seulement <b class="blink">3721 dolore$</b>.
+          <img alt="" src="https://i.imgur.com/DJiWypa.png" height="300"/>
+          <hr/>
+
+          <h3>Politique de vie privée</h3>
+
+          Four Aide est <!-- pas très --> GDPR compliant. Nous ne n'utilisons pas de témoins (cookies) <!-- juste localStorage hihi --> ni d'outils de trackage. Vos données sont stockés de manière sécuritaire. Pour supprimer votre compte, contactez roger.letourneau.
+
+          <p style="margin-bottom: 200px;">
+
+          </p>
+
+        </div>
+
+        <div data-bind="if: page() == 'about'">
+          Four Aide &copy; 2018 BETA AF built with &hearts; with JavaScript (tm)
+        </div>
+
+        <div data-bind="if: page() == 'login'">
+          Nom d'utilisateur <input type="text" data-bind="value: username" />
+          Mot de passe <input type="text" data-bind="value: password" />
+          <p>
+            <button data-bind="click: handleLogin">Connexion</button>
+          </p>
+        </div>
+
+
+        <div data-bind="if: page() == 'signup'">
+          Nom d'utilisateur <input type="text" data-bind="value: username" />
+          Mot de passe <input type="text" data-bind="value: password" />
+
+          <!--
+               Mot de passe <input type="text" data-bind="value: password" pattern="[a-z]{6}" />
+               RL 2018-07-12: Les gens aiment pas ma politique de mot de passe............
+          -->
+
+          <p>
+            <button data-bind="click: handleSignup">Inscription</button>
+          </p>
+        </div>
+
+        <div data-bind="if: page() == 'profile'">
+          <h2>Votre profile</h2>
+          Avatar: <img data-bind="attr: { src: avatar }" title="Vous êtes un four"/>
+
+          <h3>Changer le thème</h3>
+
+          <p>
+            Montrez aux autres four-aideuses et four-aideurs votre personnalité en ajoutant des couleurs à votre profile!
+          </p>
+
+          <ul data-bind="foreach: cssProperties">
+            <li>
+              <input data-bind="value: selector"/>
+              <input data-bind="value: property"/>
+              <input data-bind="value: value"/>
+              <button data-bind="click: $root.handleRemoveProperty($data)">X</button>
+            </li>
+          </ul>
+
+          <button data-bind="click: handleAddProperty">Ajouter</button>
+          <button data-bind="click: handleSave">Sauvegarder</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-debug.js"></script>
+    <script src="/app.js"></script>
+    <!-- fours 4 lyfe <3 -->
+  </body>
+</html>
