@@ -14,7 +14,7 @@ services:
       - ./web/sites-enabled:/etc/nginx/conf.d
 
     ports:
-      - "127.0.0.1:1234:80"
+      - "127.0.0.1:6003:80"
 
     depends_on:
       - server
