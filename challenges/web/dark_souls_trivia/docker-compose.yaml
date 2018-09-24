@@ -13,7 +13,7 @@ services:
       - default
       - isolated
     ports:
-      - "6001:5000"
+      - "127.0.0.1:6001:5000"
 
 networks:
   isolated:
