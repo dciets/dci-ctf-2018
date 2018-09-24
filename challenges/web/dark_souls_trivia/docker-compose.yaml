@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  challenge:
+    container_name: 'darksouls'
+    build: './dark_souls_trivia'
+    networks:
+      - isolated
+
+  firewall:
+    container_name: 'darksouls_firewall'
+    build: './firewall'
+    networks:
+      - default
+      - isolated
+    ports:
+      - "6001:5000"
+
+networks:
+  isolated:
+    external: true

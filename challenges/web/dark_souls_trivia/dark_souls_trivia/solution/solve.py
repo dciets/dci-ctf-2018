@@ -12,6 +12,6 @@ cookies = {
     "data": base64.b64encode(pickle.dumps(UserData())).decode()
 }
 
-response = requests.get("http://localhost:5000/", cookies = cookies)
-response = requests.get("http://localhost:5000/solve")
+response = requests.get("http://localhost:6001/", cookies = cookies)
+response = requests.get("http://localhost:6001/solve")
 print(response.text)
