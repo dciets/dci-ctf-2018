@@ -1,0 +1,9 @@
+service echo_server
+{
+  type = unlisted
+  protocol = tcp
+  wait = no
+  port = 3000
+  user = challenge
+  server = /app/echo_server
+}

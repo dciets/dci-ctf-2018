@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Meme Email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <p>
+    What's up, <span th:text="${friend}" />?<br /><br />
+    I totally thought of you when I saw this meme:<br />
+    <img th:src="${meme}" /><br />
+    So random LOL!<br /><br />
+    See you soon,<br /><br />
+    xoxo<br /><br />
+    <span th:text="${name}" />
+  </p>
+</body>
+</html>

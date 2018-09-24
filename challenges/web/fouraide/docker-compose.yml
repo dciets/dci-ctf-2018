@@ -1,0 +1,27 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    environment:
+      - SECRET=dbc408fc96d7a3cde7cbe5296c015759
+    depends_on:
+      - mongodb
+
+  web:
+    image: nginx:1.15.2-alpine
+    volumes:
+      - ./web/html:/var/www/html
+      - ./web/sites-enabled:/etc/nginx/conf.d
+
+    ports:
+      - "127.0.0.1:6003:80"
+
+    depends_on:
+      - server
+
+  mongodb:
+    image: mongo:3.4
+    environment:
+      - MONGO_INITDB_DATABASE=fouraide
+    volumes:
+      - ./mongodb:/docker-entrypoint-initdb.d

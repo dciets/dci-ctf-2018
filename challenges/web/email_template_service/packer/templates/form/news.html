@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>News Email Template</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>News Email Creator</h1>
+  </div>
+  <div class="container form-group">
+    <form target="/" method="GET">
+      <input type="hidden" name="page" value="news" />
+      <input type="hidden" name="type" value="email" />
+
+      <label for="company">Company name:</label>
+      <input class="form-control" type="text" name="company" /><br />
+
+      <label for="news">News:</label><br />
+      <textarea class="form-control" rows="4" cols="50" name="news"></textarea><br />
+
+      <label for="unsubscribe">Unsubscribe url:</label>
+      <input class="form-control" type="url" name="unsubscribe" /><br />
+      <input class="form-control" type="submit" name="" /><br />
+    </form>
+  </div>
+</body>
+</html>
