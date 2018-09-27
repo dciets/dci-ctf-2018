@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 RUN apt-get -y update
 RUN apt-get -y install xinetd vim net-tools
 RUN useradd challenge
