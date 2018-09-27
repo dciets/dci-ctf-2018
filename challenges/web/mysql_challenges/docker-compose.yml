@@ -22,6 +22,16 @@ services:
     ports:
       - "127.0.0.1:10002:80"
 
+  flagbook:
+    image: flagbook
+    environment:
+      MYSQL_HOST: db
+    ports:
+      - "127.0.0.1:10003:80"
+
+  bots:
+    image: bots
+
   db:
     image: mysql
     environment:

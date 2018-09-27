@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+      "chrome-remote-interface": "^0.24.1",
+      "lighthouse": "^2.2.1"
+    }
+  }
+  
