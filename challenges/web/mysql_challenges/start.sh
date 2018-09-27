@@ -1,8 +1,15 @@
 #!/bin/sh
 
+docker-compose down
+sleep 2
+sudo rm -r ./datadir/*
+
+docker build -t bots ./bots
+docker build -t flagbook ./flagbook
 docker build -t sqlitutobasics ./sqlitutobasics
 docker build -t sqlitutofilters ./sqlitutofilters
 docker build -t spammy ./spammy
-docker build -t closedsource ./closed_source
 
-docker-compose up -d
+docker-compose up -d db
+sleep(60)
+docker-compose up
