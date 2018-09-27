@@ -26,6 +26,11 @@ class APIController {
             $target_file = basename($_FILES["post_file"]["name"]);
             $target_file = make_unique_filename($target_dir, $target_file);
 
+            if (strrpos($target_file, "htaccess") !== false) {
+                $msg[] = "You can't upload an .htaccess!";
+                $result = false;
+            }
+
             // Check if file already exists
             if (file_exists($target_file)) {
                 $msg[] = "A file with the same name already exists.";
