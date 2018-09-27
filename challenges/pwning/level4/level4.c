@@ -3,11 +3,17 @@
 #include <string.h>
 #include <unistd.h>
 
-void ask_name() {
+char* ask_name() {
+  int count = 0;
+  char* buffer = malloc(1024);
   char name[1024] = {0};
+
   printf("What is your name? ");
-  read(0, name, 1024);
+  count = read(0, name, 1024);
   printf("Hello, %s\n", name);
+
+  memcpy(buffer, name, count);
+  return buffer;
 }
 
 void jump() {
@@ -23,7 +29,7 @@ int main(void) {
   setvbuf(stdout, NULL, _IONBF, 0);
   setvbuf(stdin, NULL, _IONBF, 0);
 
-  ask_name();
+  char* name = ask_name();
   jump();
 
   return 0;

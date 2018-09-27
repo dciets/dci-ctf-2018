@@ -11,5 +11,5 @@ docker build -t sqlitutofilters ./sqlitutofilters
 docker build -t spammy ./spammy
 
 docker-compose up -d db
-sleep(60)
+sleep 20
 docker-compose up
