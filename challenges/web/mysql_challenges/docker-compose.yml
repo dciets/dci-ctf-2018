@@ -26,8 +26,6 @@ services:
     image: closedsource
     environment:
       MYSQL_HOST: db
-    volumes:
-      - ./closed_source/dist/public:/var/www/html
     ports:
       - "127.0.0.1:10003:80"
 
