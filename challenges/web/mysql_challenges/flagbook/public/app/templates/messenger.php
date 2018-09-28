@@ -23,7 +23,7 @@
                           <div class="status online"></div>
                         </div>
                         <a class="name" href="/messenger?s=<?= $_SESSION["user_id"]; ?>&r=<?= $friend["id"]; ?>"><?= e($friend["username"]); ?></a>
-                        <div class="mood"><?= $friend["status"]; ?></div>
+                        <div class="mood"><?= e($friend["status"]); ?></div>
                     </div>
                   <?php endforeach; ?>
               </div>
