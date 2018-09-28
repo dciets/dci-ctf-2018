@@ -19,11 +19,11 @@
                   <?php foreach($this->data["data"]["friends"] as $friend): ?>
                     <div class="user">
                         <div class="avatar">
-                          <img src="/api/image?url=uploads/avatar.png" alt="avatar">
+                          <img src="/api/file?url=uploads/avatar.png&type=image" alt="avatar">
                           <div class="status online"></div>
                         </div>
                         <a class="name" href="/messenger?s=<?= $_SESSION["user_id"]; ?>&r=<?= $friend["id"]; ?>"><?= e($friend["username"]); ?></a>
-                        <div class="mood"><?= $friend["status"]; ?></div>
+                        <div class="mood"><?= e($friend["status"]); ?></div>
                     </div>
                   <?php endforeach; ?>
               </div>
@@ -40,7 +40,7 @@
                     <div class="answer left">
                   <?php endif; ?>
                       <div class="avatar">
-                        <img src="/api/image?url=uploads/avatar.png" alt="User name">
+                        <img src="/api/file?url=uploads/avatar.png&type=image" alt="User name">
                         <div class="status online"></div>
                       </div>
                       <div class="name"><?= e($message["username"]) ?></div>

@@ -62,7 +62,7 @@
                     <?php endif; ?>
                     <?php if ($post["image_path"] !== ""): ?>
                     <div class="card" style="background-color: black">
-                        <img class="card-img-top center-block" style="max-width: 100%; max-height: 300px;" src="/api/image?url=<?= urlencode($post["image_path"]); ?>" alt="Card image cap" />
+                        <img class="card-img-top center-block" style="max-width: 100%; max-height: 300px;" src="/api/file?url=<?= urlencode($post["image_path"]); ?>&type=image" alt="Card image cap" />
                     </div>
                     <?php endif; ?>
                     <div class="panel-footer">
@@ -175,7 +175,7 @@ $('#file_button').click(function() {
 $("#post_file").change(function() {
     extras = {path: "uploads/tmp/"}
     submit_form("/api/file-upload", "post_form", extras, function(resp) {
-        $('#file_preview').attr('src', "/api/image?url="+resp.data.path);
+        $('#file_preview').attr('src', "/api/file?url="+resp.data.path+"&type=image");
     });
 });
 

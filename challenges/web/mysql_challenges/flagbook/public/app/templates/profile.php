@@ -37,7 +37,7 @@
         <!-- user profile -->
         <div class="media">
           <div class="media-left">
-            <img src="/api/image?url=uploads/avatar.png" class="media-object" style="width: 128px; height: 128px;">
+            <img src="/api/file?url=uploads/avatar.png&type=image" class="media-object" style="width: 128px; height: 128px;">
           </div>
           <div class="media-body">
             <h2 class="media-heading">Name: <?= e($_SESSION["username"]); ?></h2>
@@ -63,7 +63,7 @@
                 <?php endif; ?>
                 <?php if ($post["image_path"] !== ""): ?>
                 <div class="card" style="background-color: black">
-                    <img class="card-img-top center-block" style="max-width: 100%; max-height: 300px;" src="/api/image?url=<?= urlencode($post["image_path"]); ?>" alt="Card image cap" />
+                    <img class="card-img-top center-block" style="max-width: 100%; max-height: 300px;" src="/api/file?url=<?= urlencode($post["image_path"]); ?>&type=image" alt="Card image cap" />
                 </div>
                 <?php endif; ?>
                 <div class="panel-footer">

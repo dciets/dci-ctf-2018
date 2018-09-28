@@ -48,8 +48,10 @@ class Router
                 $this->module = "Posts";            break;
             case "/api/messages":
                 $this->module = "Messages";         break;
-            case "/api/image":
-                $this->module = "Image";            break;
+            case "/api/file":
+                $this->module = "File";             break;
+            //case "/api/image":
+            //    $this->module = "Image";            break;
             default:
                 $this->module = "Error404";         break;
         }
